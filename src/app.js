@@ -23,20 +23,23 @@ var testLayout = [
 
 import Vue from 'vue';
 import VueGridLayout from 'vue-grid-layout';
+// import { GridLayout, GridItem } from 'vue-grid-layout';
 
 import TestElement from './TestElement.vue';
 
 new Vue({
     el: '#app',
     components: {
-        GridLayout: VueGridLayout.GridLayout,
-        GridItem: VueGridLayout.GridItem,
+        // GridLayout,
+        // GridItem,
         TestElement,
     },
     data: {
         layout: JSON.parse(JSON.stringify(testLayout)),
         colNum: 0,
-        index: 0
+        index: 0,
+        draggable: true,
+        resizable: true,
     },
     ready: function () {
         this.layouts = {lg: this.layout};

@@ -22,8 +22,8 @@
   },
   "author": "Gustavo Santos (JBay Solutions) <gustavo.santos@jbaysolutions.com> (http://www.jbaysolutions.com)",
   "dependencies": {
-    "vue-grid-layout": "^2.1.9",
-    "babel-runtime": "^6.0.0"
+    "babel-runtime": "^6.0.0",
+    "vue-grid-layout": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
