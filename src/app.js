@@ -22,16 +22,16 @@ var testLayout = [
 ];
 
 import Vue from 'vue';
-import VueGridLayout from 'vue-grid-layout';
-// import { GridLayout, GridItem } from 'vue-grid-layout';
+// import VueGridLayout from 'vue-grid-layout';
+import { GridLayout, GridItem } from 'vue-grid-layout';
 
 import TestElement from './TestElement.vue';
 
 new Vue({
     el: '#app',
     components: {
-        // GridLayout,
-        // GridItem,
+        GridLayout,
+        GridItem,
         TestElement,
     },
     data: {

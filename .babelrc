@@ -1,9 +1,10 @@
 {
   "presets": [
-    "es2015-loose",
-    "stage-1"
-  ],
-  "plugins": [
-    "transform-flow-comments"
+    [
+      "@babel/preset-env",
+      {
+        "modules": false
+      }
+    ]
   ]
 }

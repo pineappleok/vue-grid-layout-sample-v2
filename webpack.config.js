@@ -1,58 +1,64 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
-module.exports = {
+let config = {
     entry: './src/app.js',
-    output: {
-        path: path.resolve(__dirname, './dist'),
-        publicPath: '/dist/',
-        filename: 'build.js'
+    resolve: {
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            '@': path.resolve(__dirname, 'src'),
+            vue: 'vue/dist/vue.esm.js'
+        }
     },
     module: {
-        rules: [
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-                        // the "scss" and "sass" values for the lang attribute to the right configs here.
-                        // other preprocessors should work out of the box, no loader config like this nessessary.
-                        'scss': 'vue-style-loader!css-loader!sass-loader',
-                        'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-                    }
-                    // other vue-loader options go here
-                }
-            },
+        rules: [{
+            test: /\.vue$/,
+            loader: 'vue-loader'
+        },
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015']
-                },
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                loader: 'babel-loader'
             },
             {
+                test: /\.css$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader'
+                ]
+            },		{
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'file-loader',
                 options: {
-                    name: '[name].[ext]?[hash]'
+                    name: 'img/[name].[hash:8].[ext]'
                 }
+            }]
+    },
+    plugins: [
+        new VueLoaderPlugin(),
+        new HtmlWebpackPlugin({
+            template: 'index.html',
+            title: process.env.npm_package_description
+        })
+    ],
+    optimization: {}
+};
+
+module.exports = (env, argv) => {
+    if (argv.mode === 'production') {
+        config.stats = {
+            children: false,
+            modules: false
+        };
+    } else {
+        config.devServer = {
+            stats: {
+                children: false,
+                modules: false
             }
-        ]
-    },
-    resolve: {
-        alias: {
-            'vue$': 'vue/dist/vue.common.js'
-        }
-    },
-    devServer: {
-        historyApiFallback: true,
-        noInfo: true
-    },
-    performance: {
-        hints: false
-    },
-    devtool: '#eval-source-map'
-}
+        };
+        config.devtool = 'cheap-module-eval-source-map';
+    }
+    return config;
+};
