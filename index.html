@@ -25,13 +25,14 @@
             <button @click="decreaseWidth">Decrease Width</button>
             <button @click="increaseWidth">Increase Width</button>
             <button @click="addItem">Add an item</button>
+            <input type="checkbox" v-model="compact"/> Compact
             <br/>
             <grid-layout :layout="layout"
                          :col-num="12"
                          :row-height="30"
                          :is-draggable="draggable"
                          :is-resizable="resizable"
-                         :vertical-compact="true"
+                         :vertical-compact="compact"
                          :use-css-transforms="true"
             >
                 <grid-item v-for="item in layout" :key="item.i"
@@ -42,6 +43,7 @@
                            :i="item.i"
                 >
                     <span class="text">{{item.i}}</span>
+                    <span class="remove" @click="removeItem(item.i)">x</span>
                 </grid-item>
             </grid-layout>
         </div>

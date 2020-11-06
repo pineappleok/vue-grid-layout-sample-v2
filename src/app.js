@@ -40,6 +40,7 @@ new Vue({
         index: 0,
         draggable: true,
         resizable: true,
+        compact: true,
     },
     ready: function () {
         this.layouts = {lg: this.layout};
@@ -59,9 +60,10 @@ new Vue({
             width -= 20;
             document.getElementById("content").style.width = width+"px";
         },
-        removeItem: function(item) {
-            //console.log("### REMOVE " + item.i);
-            this.layout.splice(this.layout.indexOf(item), 1);
+        removeItem: function(i) {
+            console.log("### REMOVE " + i);
+            const index = this.layout.map(item => item.i).indexOf(i);
+            this.layout.splice(index, 1);
         },
         addItem: function() {
             var self = this;

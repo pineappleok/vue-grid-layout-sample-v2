@@ -69,3 +69,10 @@
 .vue-grid-item .add {
     cursor: pointer;
 }
+
+.remove {
+    position: absolute;
+    right: 2px;
+    top: 0;
+    cursor: pointer;
+}
